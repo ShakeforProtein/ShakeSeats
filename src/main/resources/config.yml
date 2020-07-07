@@ -1,0 +1,4 @@
+general:
+  messages:
+    badge: '&3&l[&2Shake Seats&l]&r'
+    err: '&4&lERROR:&r&l'

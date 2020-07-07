@@ -1,0 +1,14 @@
+name: ShakeSeats
+version: ${project.version}
+main: me.shakeforprotein.shakeseats.ShakeSeats
+api-version: 1.13
+authors: [Shakeforprotein]
+description: Sitting plugin
+
+commands:
+  toggleseat:
+    permission: shakeseats.toggle
+
+permissions:
+  shakeseats.toggle:
+    default: true
