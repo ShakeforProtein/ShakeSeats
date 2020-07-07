@@ -71,6 +71,8 @@ public class SeatListener implements Listener {
                             }
                         } else if (e.getClickedBlock().getType().name().toLowerCase().contains("carpet")) {
                             armorStand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().subtract(-0.5, 1.7, -0.5), EntityType.ARMOR_STAND);
+                        } else if(e.getClickedBlock().getType().name().toLowerCase().contains("campfire")){
+                            armorStand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().subtract(-0.5, 1.2, -0.5), EntityType.ARMOR_STAND);
                         }
 
                         if (armorStand != null) {

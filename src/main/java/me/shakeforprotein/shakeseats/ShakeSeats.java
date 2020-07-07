@@ -38,7 +38,7 @@ public final class ShakeSeats extends JavaPlugin implements Listener {
 
         // Plugin startup logic
         for (Material mat : Material.values()) {
-            if (mat.isBlock() && (mat.name().toLowerCase().contains("stairs") || mat.name().toLowerCase().contains("slab") || mat.name().toLowerCase().contains("carpet"))) {
+            if (mat.isBlock() && (mat.name().toLowerCase().contains("stairs") || mat.name().toLowerCase().contains("slab") || mat.name().toLowerCase().contains("carpet") || mat.name().toLowerCase().contains("campfire"))) {
                 suitableBlocks.add(mat);
             }
         }
