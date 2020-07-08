@@ -95,14 +95,16 @@ public class SeatListener implements Listener {
     @EventHandler
     public void PlayerQuit(PlayerQuitEvent e) {
         UUID uuid = null;
-        for (ArmorStand as : pl.standHash.keySet()) {
-            if (as.getPassengers().get(0).equals(e.getPlayer())) {
-                uuid = as.getUniqueId();
+        if(!pl.standHash.isEmpty()) {
+            for (ArmorStand as : pl.standHash.keySet()) {
+                if (as.getPassengers().get(0).equals(e.getPlayer())) {
+                    uuid = as.getUniqueId();
+                }
             }
-        }
-        if (uuid != null) {
-            pl.standHash.remove(Bukkit.getEntity(uuid));
-            Bukkit.getEntity(uuid).remove();
+            if (uuid != null) {
+                pl.standHash.remove(Bukkit.getEntity(uuid));
+                Bukkit.getEntity(uuid).remove();
+            }
         }
     }
 
@@ -117,8 +119,10 @@ public class SeatListener implements Listener {
     public void PlayerDamagedEvent(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (pl.standHash.values() != null && pl.standHash.values().contains(p)) {
-                p.getVehicle().eject();
+            if(!pl.standHash.isEmpty()) {
+                if (pl.standHash.values() != null && pl.standHash.values().contains(p)) {
+                    p.getVehicle().eject();
+                }
             }
         }
     }
