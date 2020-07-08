@@ -6,7 +6,7 @@
 
     <groupId>me.shakeforprotein</groupId>
     <artifactId>ShakeSeats</artifactId>
-    <version>0.0.1 - SpMc1.13.2</version>
+    <version>0.0.2 - SpMc1.13.2</version>
     <packaging>jar</packaging>
 
     <name>ShakeSeats</name>
