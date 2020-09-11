@@ -9,6 +9,7 @@ import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.Stairs;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -95,9 +96,9 @@ public class SeatListener implements Listener {
     @EventHandler
     public void PlayerQuit(PlayerQuitEvent e) {
         UUID uuid = null;
-        if(!pl.standHash.isEmpty()) {
+        /*if(!pl.standHash.isEmpty()) {
             for (ArmorStand as : pl.standHash.keySet()) {
-                if (as.getPassengers().get(0).equals(e.getPlayer())) {
+                if (as.getPassengers().size() > 0 &&  as.getPassengers().get(0).equals(e.getPlayer())) {
                     uuid = as.getUniqueId();
                 }
             }
@@ -105,12 +106,22 @@ public class SeatListener implements Listener {
                 pl.standHash.remove(Bukkit.getEntity(uuid));
                 Bukkit.getEntity(uuid).remove();
             }
+        }*/
+        if(e.getPlayer().isInsideVehicle()){
+            Entity vehicle = e.getPlayer().getVehicle();
+            if(vehicle instanceof ArmorStand){
+                if(pl.standHash.keySet().contains(vehicle)){
+                    pl.standHash.remove(vehicle);
+                    vehicle.remove();
+                }
+            }
         }
     }
 
     @EventHandler
     public void PlayerDismountArmorStand(EntityDismountEvent e) {
         if (e.getDismounted() instanceof ArmorStand && e.getEntity() instanceof Player && pl.standHash.containsKey((ArmorStand) e.getDismounted()) && pl.standHash.get((ArmorStand) e.getDismounted()) != null && pl.standHash.get((ArmorStand) e.getDismounted()) == e.getEntity()) {
+            pl.standHash.remove((ArmorStand) e.getDismounted());
             e.getDismounted().remove();
         }
     }
@@ -119,10 +130,11 @@ public class SeatListener implements Listener {
     public void PlayerDamagedEvent(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if(!pl.standHash.isEmpty()) {
-                if (pl.standHash.values() != null && pl.standHash.values().contains(p)) {
-                    p.getVehicle().eject();
-                }
+            if(p.isInsideVehicle() && p.getVehicle() instanceof ArmorStand && pl.standHash.containsKey(p.getVehicle())){
+                Entity vehicle = p.getVehicle();
+                vehicle.eject();
+                pl.standHash.remove(vehicle);
+                vehicle.remove();
             }
         }
     }
