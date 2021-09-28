@@ -6,7 +6,7 @@
 
     <groupId>me.shakeforprotein</groupId>
     <artifactId>ShakeSeats</artifactId>
-    <version>0.0.3 - SpMc1.13.2</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
 
     <name>ShakeSeats</name>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

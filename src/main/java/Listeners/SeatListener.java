@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
+import org.bukkit.block.data.type.Campfire;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.Stairs;
 import org.bukkit.entity.ArmorStand;
@@ -15,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -73,7 +76,11 @@ public class SeatListener implements Listener {
                         } else if (e.getClickedBlock().getType().name().toLowerCase().contains("carpet")) {
                             armorStand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().subtract(-0.5, 1.7, -0.5), EntityType.ARMOR_STAND);
                         } else if(e.getClickedBlock().getType().name().toLowerCase().contains("campfire")){
-                            armorStand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().subtract(-0.5, 1.2, -0.5), EntityType.ARMOR_STAND);
+                            Campfire campfire = (Campfire) e.getClickedBlock().getState().getBlockData();
+
+                            if(!campfire.isLit()) {
+                                armorStand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().subtract(-0.5, 1.2, -0.5), EntityType.ARMOR_STAND);
+                            }
                         }
 
                         if (armorStand != null) {
@@ -123,6 +130,7 @@ public class SeatListener implements Listener {
         if (e.getDismounted() instanceof ArmorStand && e.getEntity() instanceof Player && pl.standHash.containsKey((ArmorStand) e.getDismounted()) && pl.standHash.get((ArmorStand) e.getDismounted()) != null && pl.standHash.get((ArmorStand) e.getDismounted()) == e.getEntity()) {
             pl.standHash.remove((ArmorStand) e.getDismounted());
             e.getDismounted().remove();
+            e.getEntity().teleport(e.getEntity().getLocation().add(0,1,0));
         }
     }
 
